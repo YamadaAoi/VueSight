@@ -1,0 +1,139 @@
+{
+  "name": "emai",
+  "publisher": "zhouyinkui",
+  "displayName": "✨️emAI",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.102.0",
+    "node": "> 20"
+  },
+  "license": "MIT",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:vue"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "✨️emAI配置项",
+      "type": "object",
+      "properties": {
+        "emai.baseURL": {
+          "type": "string",
+          "default": "http://10.20.51.90:8999/v1",
+          "description": "模型地址"
+        },
+        "emai.apikey": {
+          "type": "string",
+          "default": "123456",
+          "description": "模型密码"
+        },
+        "emai.model": {
+          "type": "string",
+          "default": "Qwen",
+          "description": "模型ID"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "emai.codeOptimize",
+        "title": "✨️emAI: 优化代码并对比"
+      },
+      {
+        "command": "emai.codeFullCompletion",
+        "title": "✨️emAI: 代码补全"
+      },
+      {
+        "command": "emai.imagesExtract",
+        "title": "✨️emAI: 图片捕捉"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "emai.codeOptimize",
+          "when": "resourceLangId == vue || resourceLangId == javascript || resourceLangId == typescript",
+          "group": "1_emai@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "emai.imagesExtract",
+          "when": "resourceScheme == file && explorerResourceIsFolder",
+          "group": "preview"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "emai.codeFullCompletion",
+        "key": "ctrl+i",
+        "when": "editorTextFocus && !editorReadonly"
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "npx simple-git-hooks",
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "format": "prettier --write src",
+    "test": "vscode-test",
+    "dev-vue": "pnpm --filter \"emai-img-viewer\" dev",
+    "build-vue": "pnpm --filter \"emai-img-viewer\" build",
+    "csadd": "changeset",
+    "csver": "pnpm changeset version",
+    "vsix": "pnpm build-vue 8 vsce package"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.6",
+    "@types/fs-extra": "^11.0.4",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.102.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "chokidar": "^4.0.3",
+    "esbuild": "^0.25.3",
+    "eslint": "^9.25.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.3",
+    "fast-glob": "^3.3.3",
+    "fs-extra": "^11.3.0",
+    "hook-fetch": "^2.1.0",
+    "lint-staged": "^16.1.2",
+    "madge": "^8.0.0",
+    "npm-run-all": "^4.1.5",
+    "openai": "^5.10.2",
+    "prettier": "^3.6.2",
+    "simple-git-hooks": "^2.13.0",
+    "typescript": "^5.8.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged --concurrent false"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --cache --ignore-unknown"
+    ],
+    "*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix"
+    ]
+  }
+}
