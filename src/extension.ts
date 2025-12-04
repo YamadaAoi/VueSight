@@ -7,28 +7,55 @@ import {
 import { imagesExtract } from './commands/imagesExtract/imagesExtract'
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('✨emAI is now active!')
+  console.log('✨VueSight is now active!')
 
   // 代码优化
   const codeOptimizeCommand = vscode.commands.registerTextEditorCommand(
-    'emai.codeOptimize',
+    'VueSight.codeOptimize',
     editor => {
-      console.log('emai.codeOptimize', editor.document.uri.fsPath)
-      codeOptimize(editor.document.getText(), editor.document.uri.fsPath).catch(
-        err => {
-          vscode.window.showErrorMessage(`✨emAI代码优化: ${err}`)
-        }
+      console.log('VueSight.codeOptimize', editor.document.uri.fsPath)
+
+      const statusBarItem = vscode.window.createStatusBarItem(
+        vscode.StatusBarAlignment.Right,
+        100
       )
+      statusBarItem.text = '$(sync-spin) ✨VueSight：思考中...'
+      statusBarItem.show()
+
+      codeOptimize(editor.document.getText(), editor.document.uri.fsPath)
+        .catch(err => {
+          console.error('✨VueSight代码优化异常:', err)
+          vscode.window.showErrorMessage(
+            `✨VueSight代码优化异常：${err?.status ?? ''} ${err?.message}`
+          )
+        })
+        .finally(() => {
+          statusBarItem.dispose()
+        })
     }
   )
 
   // 代码补全
   const codeFullCompletionCommand = vscode.commands.registerCommand(
-    'emai.codeFullCompletion',
+    'VueSight.codeFullCompletion',
     () => {
-      codeFullCompletion().catch(err => {
-        vscode.window.showErrorMessage(`✨emAI代码补全: ${err}`)
-      })
+      const statusBarItem = vscode.window.createStatusBarItem(
+        vscode.StatusBarAlignment.Right,
+        100
+      )
+      statusBarItem.text = '$(sync-spin) ✨VueSight：思考中...'
+      statusBarItem.show()
+
+      codeFullCompletion()
+        .catch(err => {
+          console.error('✨VueSight代码补全异常:', err)
+          vscode.window.showErrorMessage(
+            `✨VueSight代码补全异常：${err?.status ?? ''} ${err?.message}`
+          )
+        })
+        .finally(() => {
+          statusBarItem.dispose()
+        })
     }
   )
 
@@ -56,10 +83,10 @@ export function activate(context: vscode.ExtensionContext) {
   )
 
   const imagesExtractCommand = vscode.commands.registerCommand(
-    'emai.imagesExtract',
+    'VueSight.imagesExtract',
     (uri: vscode.Uri) => {
       imagesExtract(context.extensionUri, uri).catch(err => {
-        vscode.window.showErrorMessage(`✨emAI启动预览失败: ${err}`)
+        vscode.window.showErrorMessage(`✨VueSight启动预览失败: ${err}`)
       })
     }
   )

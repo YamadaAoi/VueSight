@@ -7,8 +7,8 @@ export async function imagesExtract(
   folderUri: vscode.Uri
 ) {
   const panel = vscode.window.createWebviewPanel(
-    'emai.imagesExtract',
-    '✨emAI：图片捕捉',
+    'VueSight.imagesExtract',
+    '✨VueSight：图片捕捉',
     vscode.ViewColumn.One,
     {
       enableScripts: true,
@@ -65,7 +65,7 @@ export async function imagesExtract(
           console.error(err)
           panel.webview.postMessage({
             command: 'dataDirectory',
-            data: { code: '500', message: '✨emAI：获取目录树失败' }
+            data: { code: '500', message: '✨VueSight：获取目录树失败' }
           })
         })
     } else if (message.command === 'fetchImages') {
@@ -90,7 +90,7 @@ export async function imagesExtract(
           console.error(err)
           panel.webview.postMessage({
             command: 'dataImages',
-            data: { code: '500', message: '✨emAI：获取图片失败' }
+            data: { code: '500', message: '✨VueSight：获取图片失败' }
           })
         })
     }

@@ -2,11 +2,12 @@ import * as vscode from 'vscode'
 import hookFetch from 'hook-fetch'
 
 export function getApi() {
-  const config = vscode.workspace.getConfiguration('emai')
+  const config = vscode.workspace.getConfiguration('VueSight')
+  const apiKey = config.get<string>('apiKey')
   return hookFetch.create({
-    baseURL: config.get('baseURL'),
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      Authorization: apiKey ? `Bearer ${apiKey}` : undefined
     }
   })
 }

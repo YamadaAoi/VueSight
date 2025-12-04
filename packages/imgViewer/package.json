@@ -1,6 +1,6 @@
 {
-  "name": "emai-img-viewer",
-  "version": "1.0.0",
+  "name": "vue-sight-img-viewer",
+  "version": "1.0.1",
   "description": "图片查看",
   "private": true,
   "scripts": {
