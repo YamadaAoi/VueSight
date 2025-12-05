@@ -1,10 +1,10 @@
 # Change Log
 
-## 0.0.2
+## 0.0.1
 
 ### Patch Changes
 
-- 优化ai请求方式
+- 初始化项目
 
 All notable changes to the "VueSight" extension will be documented in this file.
 

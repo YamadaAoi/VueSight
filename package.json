@@ -3,17 +3,19 @@
   "publisher": "zhouyinkui",
   "displayName": "VueSight",
   "description": "vscode vue ai小插件",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "engines": {
-    "vscode": "^1.102.0",
+    "vscode": "^1.88.0",
     "node": "> 20"
   },
   "license": "MIT",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/YamadaAoi/VueSight"
   },
   "categories": [
+    "AI",
     "Other"
   ],
   "activationEvents": [
@@ -29,17 +31,17 @@
       "properties": {
         "VueSight.baseURL": {
           "type": "string",
-          "default": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
+          "default": "",
           "description": "模型HTTP 请求地址"
         },
         "VueSight.apiKey": {
           "type": "string",
-          "default": "sk-afa4598e97df4f4c8527538eb43c7c76",
+          "default": "",
           "description": "模型API Key"
         },
         "VueSight.model": {
           "type": "string",
-          "default": "qwen-plus",
+          "default": "",
           "description": "模型ID"
         }
       }
@@ -108,7 +110,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
-    "@types/vscode": "^1.102.0",
+    "@types/vscode": "^1.88.0",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
     "@vscode/test-cli": "^0.0.11",
