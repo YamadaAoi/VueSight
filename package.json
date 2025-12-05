@@ -1,7 +1,7 @@
 {
   "name": "vue-sight",
   "publisher": "zhouyinkui",
-  "displayName": "✨️VueSight",
+  "displayName": "VueSight",
   "description": "vscode vue ai小插件",
   "version": "0.0.2",
   "engines": {
